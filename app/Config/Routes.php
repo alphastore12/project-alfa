@@ -46,6 +46,7 @@ $routes->resource('suppliers');
 $routes->resource('customers');
 $routes->resource('sales');
 $routes->resource('users');
+$routes->resource('purchases');
 
 
 
