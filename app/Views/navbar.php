@@ -2,24 +2,36 @@
   <!-- Navbar content -->
   <div class="container-fluid">
     <a class="navbar-brand">
-      <h1 class="mt-1">ALPH/\STORE <img src="/image/logo.jpg" class="image1"> </h1>
+      <img src="/image/logoapp.jpg" class="image1">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-      <a class="nav-link active" aria-current="page" href="/pages/home">Home</a>
-        </li>
-          <a class="nav-link active" aria-current="page" href="/pages/stock">Stock</a>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/pages/home">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/pages/barangmasuk">Barang Masuk</a>
+          <a class="nav-link active" aria-current="page" href="/items">Items</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/pages/barangkeluar">Barang Keluar</a>
+          <a class="nav-link active" aria-current="page" href="/purchases">Purchases</a>
         </li>
-        <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/suppliers">Suppliers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/customers">Customers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/sales">Sales</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/user">Users</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item ml-auto">
           <form action="/sessions/logout" method="post">
             <button type="submit" class="btn btn-link nav-link">Logout</button>

@@ -29,7 +29,7 @@ class Sessions extends BaseController
         $password = $this->request->getvar('password');
         if ($email == 'alpha@gmail.com' && $password == '123'){
             $this->session->set('username', 1);
-            return redirect()->to('/pages/stock');
+            return redirect()->to('/pages/home');
         } else {
             if (!$this->session->get('username'))  {
                 $this->session->setFlashdata('danger', 'Username dan Password yang anda masukkan salah');

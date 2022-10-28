@@ -13,7 +13,7 @@
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg-primary">
+<body style="background-color: #8dd7cf;">
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>
@@ -22,7 +22,7 @@
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header">
-                                    <h3 class="text-center font-weight-light my-4">Login</h3>
+                                <img src="/image/login.jpg" style="width: 400px; height: 100px;">       
                                 </div>
                                 <div class="card-body">
                                     <?php foreach (session()->getFlashdata() as $key => $flash)  :  ?>
