@@ -22,7 +22,7 @@
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header">
-                                <img src="/image/login.jpg" style="width: 400px; height: 100px;">       
+                                <img src="/image/login.jpg" style="width: 100%">       
                                 </div>
                                 <div class="card-body">
                                     <?php foreach (session()->getFlashdata() as $key => $flash)  :  ?>
