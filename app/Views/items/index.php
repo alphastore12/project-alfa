@@ -1,4 +1,4 @@
-<h3>List Barang</h3>
+<h3>List Barang baru</h3>
 
 <a href="/items/new" class="btn btn-sm btn-primary mb-2">Tambah Barang</a>
 
