@@ -35,7 +35,7 @@ class Purchases extends BaseController
     public function create()
     {
         if (!$this->validate([
-            'id' => "required|alpha_numeric_space",
+            // 'id' => "required|alpha_numeric_space",
             'invoiceno' => 'required|alpha_space',
             'invoicedate' => 'required|valid_date',
             'supplierid' => 'required|integer',
@@ -70,7 +70,7 @@ class Purchases extends BaseController
 
     public function update($id){
         if (!$this->validate([
-            'id' => "required|alpha_numeric_space",
+            // 'id' => "required|alpha_numeric_space",
             'invoiceno' => 'required|alpha_space',
             'invoicedate' => 'required|valid_date',
             'supplierid' => 'required|integer',
