@@ -19,6 +19,7 @@
             <th>Supplier id</th>
             <th>Grand total</th>
             <th>User id</th>
+            <th>Action</th>
 </tr>
 </thead>
 <tbody>

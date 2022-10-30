@@ -16,47 +16,47 @@
             <?php } ?>
         </div>
         <div class="mb-3">
-            <label for="invoice no" class="from-label">Invoice no</label>
-            <input type="int" name="invoice no" id="invoice no" class="form-control" value="<?= $items['invoice no'] ?>">
-            <?php if (isset($errors) and $errors->getError('invoice no')) { ?>
+            <label for="invoiceno" class="from-label">Invoice no</label>
+            <input type="int" name="invoiceno" id="invoiceno" class="form-control" value="<?= $items['invoiceno'] ?>">
+            <?php if (isset($errors) and $errors->getError('invoiceno')) { ?>
                 <div class='text-danger mt-2'>
-                    <?= $error = $errors->getError('invoice no'); ?>
+                    <?= $error = $errors->getError('invoiceno'); ?>
                 </div>
             <?php } ?>
         </div>
         <div class="mb-3">
-            <label for="invoice date" class="from-label">invoice date</label>
-            <input type="datetime" name="invoice date" id="invoice date" class="form-control" value="<?= $items['invoice date'] ?>">
-            <?php if (isset($errors) and $errors->getError('invoice date')) { ?>
+            <label for="invoicedate" class="from-label">invoice date</label>
+            <input type="datetime" name="invoicedate" id="invoicedate" class="form-control" value="<?= $items['invoicedate'] ?>">
+            <?php if (isset($errors) and $errors->getError('invoicedate')) { ?>
                 <div class='text-danger mt-2'>
-                    <?= $error = $errors->getError('invoice date'); ?>
+                    <?= $error = $errors->getError('invoicedate'); ?>
                 </div>
             <?php } ?>
             </div>
         <div class="mb-3">
-            <label for="supplier id" class="from-label">supplier id</label>
-            <input type="int" name="supplier id" id="supplier id" class="form-control" value="<?= $items['supplier id'] ?>">
-            <?php if (isset($errors) and $errors->getError('supplier id')) { ?>
+            <label for="supplierid" class="from-label">supplier id</label>
+            <input type="int" name="supplierid" id="supplierid" class="form-control" value="<?= $items['supplierid'] ?>">
+            <?php if (isset($errors) and $errors->getError('supplierid')) { ?>
                 <div class='text-danger mt-2'>
-                    <?= $error = $errors->getError('supplier id'); ?>
+                    <?= $error = $errors->getError('supplierid'); ?>
                 </div>
             <?php } ?>
             </div>
         <div class="mb-3">
-            <label for="grand total" class="from-label">grand total</label>
-            <input type="int" name="grand total" id="grand total" class="form-control" value="<?= $items['grand total'] ?>">
-            <?php if (isset($errors) and $errors->getError('grand total')) { ?>
+            <label for="grandtotal" class="from-label">grand total</label>
+            <input type="int" name="grandtotal" id="grandtotal" class="form-control" value="<?= $items['grandtotal'] ?>">
+            <?php if (isset($errors) and $errors->getError('grandtotal')) { ?>
                 <div class='text-danger mt-2'>
-                    <?= $error = $errors->getError('grand total'); ?>
+                    <?= $error = $errors->getError('grandtotal'); ?>
                 </div>
             <?php } ?>
             </div>
         <div class="mb-3">
-            <label for="user id" class="from-label">user id</label>
-            <input type="int" name="user id" id="user id" class="form-control" value="<?= $items['user id'] ?>">
-            <?php if (isset($errors) and $errors->getError('user id')) { ?>
+            <label for="userid" class="from-label">user id</label>
+            <input type="int" name="userid" id="userid" class="form-control" value="<?= $items['userid'] ?>">
+            <?php if (isset($errors) and $errors->getError('userid')) { ?>
                 <div class='text-danger mt-2'>
-                    <?= $error = $errors->getError('user id'); ?>
+                    <?= $error = $errors->getError('userid'); ?>
                 </div>
             <?php } ?>
         </div>
