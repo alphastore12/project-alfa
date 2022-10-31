@@ -64,7 +64,7 @@ class Purchases extends BaseController
     public function edit($id){
         $item_model = new PurchasesModel();
         $data['main_view'] = 'purchases/edit';
-        $data['items'] = $item_model->get_data($id);
+        $data['item'] = $item_model->get_data($id);
         return view('layout', $data);
     }
 
@@ -77,8 +77,10 @@ class Purchases extends BaseController
             'grandtotal' => 'required|integer',
             'userid' => 'required|integer'
         ])) {
+            $item_model = new PurchasesModel();
             $data['main_view'] = 'purchases/edit';
             $data['errors'] = $this->validator;
+            $data['item'] = $item_model->get_data($id);
             return view('layout', $data);
         }
 
