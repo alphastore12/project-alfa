@@ -16,7 +16,7 @@ class Purchases extends Migration
             'auto_increment' => true
         ],
         'invoiceno' => [
-            'type' => 'text',
+            'type' => 'varchar',
             'constraint' => 255
         ],
         'invoicedate' => [
