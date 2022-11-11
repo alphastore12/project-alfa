@@ -16,8 +16,8 @@ class Sessions extends BaseController
 
     public function index()
     {
-        if ($this->session->get('username')) {
-            return redirect()->to('/pages/home');
+        if ($this->session->get('iduser')) {
+            return redirect()->to('pages/home');
         }
 
         return view('sessions/index');
@@ -26,23 +26,21 @@ class Sessions extends BaseController
     public function create()
     {
         $email = $this->request->getVar('email');
-        $password = $this->request->getvar('password');
-        if ($email == 'alpha@gmail.com' && $password == '123'){
-            $this->session->set('username', 1);
-            return redirect()->to('/pages/home');
+        $password = $this->request->getVar('password');
+        if ($email == 'alpha@gmail.com' && $password == '123') {
+            $this->session->set('iduser', 1);
+            return redirect()->to('pages/home');
         } else {
-            if (!$this->session->get('username'))  {
+            if (!$this->session->get('iduser')) {
                 $this->session->setFlashdata('danger', 'Username dan Password yang anda masukkan salah');
                 return redirect()->to('/');
+            }
         }
-    }
     }
 
     public function logout()
     {
-        $this->session->remove('username');
+        $this->session->remove('iduser');
         return redirect()->to('/');
     }
-    
 }
-        

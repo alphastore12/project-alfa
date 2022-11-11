@@ -3,9 +3,9 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\PurchaseModel;
+use App\Models\SaleModel;
 
-class Purchases extends BaseController
+class Sales extends BaseController
 {
 
     protected $session;
@@ -22,15 +22,15 @@ class Purchases extends BaseController
             return redirect()->to('/');
         }
 
-        $purchase_model = new PurchaseModel();
-        $data['main_view'] = 'purchases/index';
-        $data['purchases'] = $purchase_model->get_all_data();
+        $sale_model = new SaleModel();
+        $data['main_view'] = 'sales/index';
+        $data['sales'] = $sale_model->get_all_data();
         return view('layout', $data);
     }
 
     public function new()
     {
-        $data['main_view'] = 'purchases/new';
+        $data['main_view'] = 'sales/new';
         return view('layout', $data);
     }
 
@@ -39,35 +39,35 @@ class Purchases extends BaseController
         if (!$this->validate([
             'invoice_no' => "required|integer",
             'invoice_date' => 'required|date',
-            'supplier_id' => 'required|integer',
+            'customer_id' => 'required|integer',
             'grand_total' => 'required|integer',
             'user_id' => 'required|integer'
         ])) {
-            $data['main_view'] = 'purchases/new';
+            $data['main_view'] = 'sales/new';
             $data['errors'] = $this->validator;
             return view('layout', $data);
         }
 
-        $purchase_model = new PurchaseModel();
-        $purchase_model->create_data($this->request);
+        $sale_model = new SaleModel();
+        $sale_model->create_data($this->request);
         $this->session->setFlashdata('success', 'Barang berhasil disimpan');
-        return redirect()->to('/purchases');
+        return redirect()->to('/sales');
     }
 
     public function delete($id)
     {
         $id = $this->request->getVar('id');
-        $purchase_model = new PurchaseModel();
-        $purchase_model->delete($id);
+        $sale_model = new SaleModel();
+        $sale_model->delete($id);
         $this->session->setFlashdata('success', 'Barang berhasil dihapus');
-        return redirect()->to('/purchases');
+        return redirect()->to('/sales');
     }
 
     public function edit($id)
     {
-        $purchase_model = new PurchaseModel();
-        $data['main_view'] = 'purchases/edit';
-        $data['purchase'] = $purchase_model->get_data($id);
+        $sale_model = new SaleModel();
+        $data['main_view'] = 'sales/edit';
+        $data['sale'] = $sale_model->get_data($id);
         return view('layout', $data);
     }
 
@@ -76,17 +76,17 @@ class Purchases extends BaseController
         if (!$this->validate([
             'invoice_no' => "required|integer",
             'invoice_date' => 'required|date',
-            'supplier_id' => 'required|integer',
+            'customer_id' => 'required|integer',
             'grand_total' => 'required|integer',
             'user_id' => 'required|integer'
         ])) {
-            $data['main_view'] = 'purchases/edit';
+            $data['main_view'] = 'sales/edit';
             $data['errors'] = $this->validator;
             return view('layout', $data);
         }
-        $purchase_model = new PurchaseModel();
-        $purchase_model->update_data($id, $this->request);
+        $sale_model = new saleModel();
+        $sale_model->update_data($id, $this->request);
         $this->session->setFlashdata('success', 'Barang berhasil diperbarui');
-        return redirect()->to('/purchases');
+        return redirect()->to('/sales');
     }
 }

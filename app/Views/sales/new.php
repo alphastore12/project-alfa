@@ -1,10 +1,10 @@
 <div class="container-fluid px-4">
     <div class="mb-3">
-        <h5 class="mt-4">Add Purchase</h5>
-        <a href="/purchases" class="btn btn-sm btn-danger mb-2">Back</a>
+        <h5 class="mt-4">Add Sale</h5>
+        <a href="/sales" class="btn btn-sm btn-danger mb-2">Back</a>
     </div>
     <div class="mb-3">
-        <form action="/purchases" method="post" enctype="multipart/form-data">
+        <form action="/sales" method="post" enctype="multipart/form-data">
             <label for="invoice_no" class="from-label">Invoice_no</label>
             <input type="text" name="invoice_no" id="invoice_no" class="form-control" value="<?= set_value('invoice_no') ?>">
             <?php if (isset($errors) and $errors->getError('invoice_no')) { ?>
@@ -23,11 +23,11 @@
         <?php } ?>
     </div>
     <div class="mb-3">
-        <label for="supplier_id" class="from-label">Supplier_id</label>
-        <input type="text" name="supplier_id" id="supplier_id" class="form-control" value="<?= set_value('supplier_id') ?>">
-        <?php if (isset($errors) and $errors->getError('supplier_id')) { ?>
+        <label for="customer_id" class="from-label">Customer_id</label>
+        <input type="text" name="customer_id" id="customer_id" class="form-control" value="<?= set_value('customer_id') ?>">
+        <?php if (isset($errors) and $errors->getError('customer_id')) { ?>
             <div class='text-danger mt-2'>
-                <?= $error = $errors->getError('supplier_id'); ?>
+                <?= $error = $errors->getError('customer_id'); ?>
             </div>
         <?php } ?>
     </div>

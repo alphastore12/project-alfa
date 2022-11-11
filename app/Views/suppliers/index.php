@@ -1,6 +1,6 @@
 <div class="container-fluid px-4">
-    <h3 class="mt-4" class="text-center">Customers</h3>
-    <a href="/customers/new" class="btn btn-sm btn-primary mb-2">Add Customer</a>
+    <h3 class="mt-4" class="text-center">Suppliers</h3>
+    <a href="/suppliers/new" class="btn btn-sm btn-primary mb-2">Add Suppliers</a>
 </div>
 
 
@@ -13,7 +13,7 @@
     <table class="table table-bordered">
         <thead class="card-body">
             <tr class="text-center">
-                <th scope="col" style="background-color: #8dd7cf;">No</th>
+                <th scope="col" style="background-color: #8dd7cf;">Id</th>
                 <th scope="col" style="background-color: #8dd7cf;">Image</th>
                 <th scope="col" style="background-color: #8dd7cf;">code</th>
                 <th scope="col" style="background-color: #8dd7cf;">name</th>
@@ -22,23 +22,23 @@
             </tr>
         </thead>
         <tbody>
-            <?php if (empty($customers)) : ?>
+            <?php if (empty($suppliers)) : ?>
                 <tr>
                     <td colspan=3>Tidak ada data</td>
                 </tr>
             <?php else : ?>
-                <?php foreach ($customers as $index => $customer) : ?>
+                <?php foreach ($suppliers as $index => $supplier) : ?>
                     <tr>
                         <td><?= $index + 1 ?></td>
-                        <td><img src="/assets/images/<?= $customer->image_name ?>" alt="Image for" <?= $customer->name ?> width="200px" /></td>
-                        <td><?= $customer->code ?></td>
-                        <td><?= $customer->name ?></td>
-                        <td><?= $customer->status_id ?></td>
+                        <td><img src="/assets/images/<?= $supplier->image_name ?>" alt="Image for" <?= $supplier->name ?> width="200px" /></td>
+                        <td><?= $supplier->code ?></td>
+                        <td><?= $supplier->name ?></td>
+                        <td><?= $supplier->status_id ?></td>
                         <td>
-                            <form action="/customers/delete" method="post">
+                            <form action="/suppliers/delete" method="post">
                                 <input type="hidden" name="_method" value="DELETE" />
-                                <input type="hidden" name="id" value="<?= $customer->id ?>" />
-                                <a href="/customers/<?= $customer->id ?>/edit" class="btn btn-sm btn-warning">Ubah</a>
+                                <input type="hidden" name="id" value="<?= $supplier->id ?>" />
+                                <a href="/suppliers/<?= $supplier->id ?>/edit" class="btn btn-sm btn-warning">Ubah</a>
                                 <button type="submit" class="btn btn-sm btn-danger btnHapus">Hapus</button>
                             </form>
                         </td>

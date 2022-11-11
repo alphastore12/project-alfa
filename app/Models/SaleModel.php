@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ItemModel extends Model
+class SaleModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'items';
+    protected $table            = 'sales';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'unit', 'price', 'image_name'];
+    protected $allowedFields    = ['invoice_no', 'invoice_date', 'customer_id', 'grand_total', 'user_id'];
 
     // Dates
     protected $useTimestamps = false;
@@ -50,23 +50,14 @@ class ItemModel extends Model
         return $this->find($id);
     }
 
-    public function search_data($search)
-    {
-        $query = $this->like('LOWER(name)', strtolower($search));
-        return $query->get()->getResult();
-    }
-
     public function create_data($params)
     {
-        $uploaded_file = $params->getFile('image_upload');
-        $image_name = $uploaded_file->getRandomName();
-        $uploaded_file->move('assets/images', $image_name);
-
         $data = [
-            'name' => $params->getVar('name'),
-            'unit' => $params->getvar('unit'),
-            'price' => $params->getVar('price'),
-            'image_name' => $image_name
+            'invoice_no' => $params->getVar('invoice_no'),
+            'invoice_date' => $params->getvar('invoice_date'),
+            'customer_id' => $params->getVar('customer_id'),
+            'grand_total' => $params->getVar('grand_total'),
+            'user_id' => $params->getVar('user_id')
         ];
         return $this->save($data);
     }
@@ -74,9 +65,11 @@ class ItemModel extends Model
     public function update_data($id, $params)
     {
         $data = [
-            'name' => $params->getVar('name'),
-            'unit' => $params->getVar('unit'),
-            'price' => $params->getVar('price')
+            'invoice_no' => $params->getVar('invoice_no'),
+            'invoice_date' => $params->getvar('invoice_date'),
+            'customer_id' => $params->getVar('customer_id'),
+            'grand_total' => $params->getVar('grand_total'),
+            'user_id' => $params->getVar('user_id')
         ];
         return $this->update($id, $data);
     }

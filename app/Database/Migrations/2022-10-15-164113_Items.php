@@ -8,7 +8,7 @@ class Items extends Migration
 {
     public function up()
     {
-        $this->forge->addField( [
+        $this->forge->addField([
             'id' => [
                 'type' => 'int',
                 'unsigned' => true,
@@ -26,9 +26,8 @@ class Items extends Migration
                 'type' => 'decimal'
             ],
         ]);
-        $this->forge->addPrimaryKey('id' , TRUE);
-        $this->forge->createTable('items' , TRUE);
-
+        $this->forge->addPrimaryKey('id', TRUE);
+        $this->forge->createTable('items', TRUE);
     }
 
     public function down()

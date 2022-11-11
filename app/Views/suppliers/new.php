@@ -1,10 +1,10 @@
 <div class="container-fluid px-4">
     <div class="mb-3">
-        <h5 class="mt-4">Add Customer</h5>
-        <a href="/customers" class="btn btn-sm btn-danger mb-2">Back</a>
+        <h5 class="mt-4">Add Supplier</h5>
+        <a href="/suppliers" class="btn btn-sm btn-danger mb-2">Back</a>
     </div>
     <div class="mb-3">
-        <form action="/customers" method="post" enctype="multipart/form-data">
+        <form action="/suppliers" method="post" enctype="multipart/form-data">
             <label for="code" class="from-label">Code</label>
             <input type="text" name="code" id="code" class="form-control" value="<?= set_value('code') ?>">
             <?php if (isset($errors) and $errors->getError('code')) { ?>

@@ -3,9 +3,9 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\CustomerModel;
+use App\Models\SupplierModel;
 
-class Customers extends BaseController
+class Suppliers extends BaseController
 {
 
     protected $session;
@@ -22,15 +22,15 @@ class Customers extends BaseController
             return redirect()->to('/');
         }
 
-        $customer_model = new CustomerModel();
-        $data['main_view'] = 'customers/index';
-        $data['customers'] = $customer_model->get_all_data();
+        $supplier_model = new SupplierModel();
+        $data['main_view'] = 'suppliers/index';
+        $data['suppliers'] = $supplier_model->get_all_data();
         return view('layout', $data);
     }
 
     public function new()
     {
-        $data['main_view'] = 'customers/new';
+        $data['main_view'] = 'suppliers/new';
         return view('layout', $data);
     }
 
@@ -41,31 +41,31 @@ class Customers extends BaseController
             'name' => 'required|alpha_numeric_space',
             'status_id' => 'required|alpha_numeric_space',
         ])) {
-            $data['main_view'] = 'customers/new';
+            $data['main_view'] = 'suppliers/new';
             $data['errors'] = $this->validator;
             return view('layout', $data);
         }
 
-        $customer_model = new CustomerModel();
-        $customer_model->create_data($this->request);
+        $supplier_model = new SupplierModel();
+        $supplier_model->create_data($this->request);
         $this->session->setFlashdata('success', 'Data berhasil disimpan');
-        return redirect()->to('/customers');
+        return redirect()->to('/suppliers');
     }
 
     public function delete($id)
     {
         $id = $this->request->getVar('id');
-        $customer_model = new CustomerModel();
-        $customer_model->delete($id);
+        $supplier_model = new SupplierModel();
+        $supplier_model->delete($id);
         $this->session->setFlashdata('success', 'Data berhasil dihapus');
-        return redirect()->to('/customers');
+        return redirect()->to('/suppliers');
     }
 
     public function edit($id)
     {
-        $customer_model = new CustomerModel();
-        $data['main_view'] = 'customers/edit';
-        $data['customer'] = $customer_model->get_data($id);
+        $supplier_model = new SupplierModel();
+        $data['main_view'] = 'suppliers/edit';
+        $data['supplier'] = $supplier_model->get_data($id);
         return view('layout', $data);
     }
 
@@ -76,13 +76,13 @@ class Customers extends BaseController
             'name' => 'required|alpha_numeric_space',
             'status_id' => 'required|alpha_numeric_space',
         ])) {
-            $data['main_view'] = 'customers/edit';
+            $data['main_view'] = 'suppliers/edit';
             $data['errors'] = $this->validator;
             return view('layout', $data);
         }
-        $customer_model = new CustomerModel();
-        $customer_model->update_data($id, $this->request);
+        $supplier_model = new SupplierModel();
+        $supplier_model->update_data($id, $this->request);
         $this->session->setFlashdata('success', 'Data berhasil diperbarui');
-        return redirect()->to('/customers');
+        return redirect()->to('/suppliers');
     }
 }

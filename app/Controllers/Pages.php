@@ -16,7 +16,7 @@ class Pages extends BaseController
 
     public function home()
     {
-        if (!$this->session->get('username')) {
+        if (!$this->session->get('iduser')) {
             $this->session->setFlashdata('danger', 'Anda harus login terlebih dahulu');
             return redirect()->to('/');
         }

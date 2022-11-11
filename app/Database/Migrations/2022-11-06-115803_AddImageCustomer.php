@@ -4,11 +4,11 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class AddImageItem extends Migration
+class AddImageCustomer extends Migration
 {
     public function up()
     {
-        $this->forge->addColumn('items', [
+        $this->forge->addColumn('customers', [
             'image_name' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255'
@@ -17,6 +17,6 @@ class AddImageItem extends Migration
     }
     public function down()
     {
-        $this->forge->dropColumn('items', 'image_name');
+        $this->forge->dropColumn('customers', 'image_name');
     }
 }

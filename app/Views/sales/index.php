@@ -1,6 +1,6 @@
 <div class="container-fluid px-4">
-    <h3 class="mt-4" class="text-center">Customers</h3>
-    <a href="/customers/new" class="btn btn-sm btn-primary mb-2">Add Customer</a>
+    <h3 class="mt-4" class="text-center">Sales</h3>
+    <a href="/sales/new" class="btn btn-sm btn-primary mb-2">Add Sales</a>
 </div>
 
 
@@ -14,31 +14,33 @@
         <thead class="card-body">
             <tr class="text-center">
                 <th scope="col" style="background-color: #8dd7cf;">No</th>
-                <th scope="col" style="background-color: #8dd7cf;">Image</th>
-                <th scope="col" style="background-color: #8dd7cf;">code</th>
-                <th scope="col" style="background-color: #8dd7cf;">name</th>
-                <th scope="col" style="background-color: #8dd7cf;">Status_id</th>
+                <th scope="col" style="background-color: #8dd7cf;">Invoice_no</th>
+                <th scope="col" style="background-color: #8dd7cf;">Invoice_date</th>
+                <th scope="col" style="background-color: #8dd7cf;">Customer_id</th>
+                <th scope="col" style="background-color: #8dd7cf;">Grand_total</th>
+                <th scope="col" style="background-color: #8dd7cf;">User_id</th>
                 <th scope="col" style="background-color: #8dd7cf;">Action</th>
             </tr>
         </thead>
         <tbody>
-            <?php if (empty($customers)) : ?>
+            <?php if (empty($sales)) : ?>
                 <tr>
                     <td colspan=3>Tidak ada data</td>
                 </tr>
             <?php else : ?>
-                <?php foreach ($customers as $index => $customer) : ?>
+                <?php foreach ($sales as $index => $sale) : ?>
                     <tr>
                         <td><?= $index + 1 ?></td>
-                        <td><img src="/assets/images/<?= $customer->image_name ?>" alt="Image for" <?= $customer->name ?> width="200px" /></td>
-                        <td><?= $customer->code ?></td>
-                        <td><?= $customer->name ?></td>
-                        <td><?= $customer->status_id ?></td>
+                        <td><?= $sale->invoice_no ?></td>
+                        <td><?= $sale->invoice_date ?></td>
+                        <td><?= $sale->customer_id ?></td>
+                        <td><?= $sale->grand_total ?></td>
+                        <td><?= $sale->user_id ?></td>
                         <td>
-                            <form action="/customers/delete" method="post">
+                            <form action="/sales/delete" method="post">
                                 <input type="hidden" name="_method" value="DELETE" />
-                                <input type="hidden" name="id" value="<?= $customer->id ?>" />
-                                <a href="/customers/<?= $customer->id ?>/edit" class="btn btn-sm btn-warning">Ubah</a>
+                                <input type="hidden" name="id" value="<?= $sale->id ?>" />
+                                <a href="/sales/<?= $sale->id ?>/edit" class="btn btn-sm btn-warning">Ubah</a>
                                 <button type="submit" class="btn btn-sm btn-danger btnHapus">Hapus</button>
                             </form>
                         </td>
