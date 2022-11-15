@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\UserModel;
 
 class Sessions extends BaseController
 {
@@ -16,7 +17,7 @@ class Sessions extends BaseController
 
     public function index()
     {
-        if ($this->session->get('iduser')) {
+        if ($this->session->get('user_id')) {
             return redirect()->to('pages/home');
         }
 
@@ -27,20 +28,20 @@ class Sessions extends BaseController
     {
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
-        if ($email == 'alpha@gmail.com' && $password == '123') {
-            $this->session->set('iduser', 1);
-            return redirect()->to('pages/home');
+        $user_model = new UserModel();
+        $user = $user_model->auth_user($email, $password);
+        if ($user != NULL) {
+            $this->session->set('user_id', $user['id']);
+            return redirect()->to('/pages/home');
         } else {
-            if (!$this->session->get('iduser')) {
-                $this->session->setFlashdata('danger', 'Username dan Password yang anda masukkan salah');
-                return redirect()->to('/');
-            }
+            $this->session->setFlashdata('danger', 'Email dan Password yang Anda masukkan tidak sesuai');
+            return redirect()->to('/');
         }
     }
 
     public function logout()
     {
-        $this->session->remove('iduser');
+        $this->session->remove('user_id');
         return redirect()->to('/');
     }
 }

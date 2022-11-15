@@ -17,7 +17,7 @@ class Purchases extends BaseController
 
     public function index()
     {
-        if (!$this->session->get('iduser')) {
+        if (!$this->session->get('user_id')) {
             $this->session->setFlashdata('danger', 'Anda harus login terlebih dahulu');
             return redirect()->to('/');
         }

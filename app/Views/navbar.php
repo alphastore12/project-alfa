@@ -28,7 +28,7 @@
           <a class="nav-link active" aria-current="page" href="/sales">Sales</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/user">Users</a>
+          <a class="nav-link active" aria-current="page" href="/users">Users</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">

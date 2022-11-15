@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ItemModel extends Model
+class UserModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'items';
+    protected $table            = 'users';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'unit', 'price', 'image_name'];
+    protected $allowedFields    = ['name', 'email', 'password', 'status_id'];
 
     // Dates
     protected $useTimestamps = false;
@@ -53,23 +53,18 @@ class ItemModel extends Model
     public function search_data($search)
     {
         $query = $this->like('LOWER(name)', strtolower($search));
-        $query = $query->orLike('LOWER(price)', strtolower($search));
-        $query = $query->orLike('LOWER(unit)', strtolower($search));
+        $query = $query->orLike('LOWER(email)', strtolower($search));
         $query = $query->orderBy('name', 'ASC');
-        return $query->paginate(5, 'items');
+        return $query->paginate(5, 'users');
     }
 
     public function create_data($params)
     {
-        $uploaded_file = $params->getFile('image_upload');
-        $image_name = $uploaded_file->getRandomName();
-        $uploaded_file->move('assets/images', $image_name);
-
         $data = [
             'name' => $params->getVar('name'),
-            'unit' => $params->getvar('unit'),
-            'price' => $params->getVar('price'),
-            'image_name' => $image_name
+            'email' => $params->getVar('email'),
+            'password' => password_hash($params->getVar('password'), PASSWORD_DEFAULT),
+            'status_id' => $params->getVar('status_id')
         ];
         return $this->save($data);
     }
@@ -78,9 +73,24 @@ class ItemModel extends Model
     {
         $data = [
             'name' => $params->getVar('name'),
-            'unit' => $params->getVar('unit'),
-            'price' => $params->getVar('price')
+            'email' => $params->getVar('email'),
+            'password' => password_hash($params->getVar('password'), PASSWORD_DEFAULT),
+            'status_id' => $params->getVar('status_id')
         ];
         return $this->update($id, $data);
+    }
+
+    public function auth_user($email, $password)
+    {
+        $query = $this->where('LOWER(email)', strtolower(trim($email)));
+        $result = $query->get()->getRowArray();
+        if ($result === NULL) {
+            $user = null;
+        } else if (password_verify($password, $result['password'])) {
+            $user = $result;
+        } else {
+            $user = null;
+        }
+        return $user;
     }
 }
