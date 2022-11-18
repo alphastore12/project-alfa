@@ -37,17 +37,22 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Sessions::index');
 $routes->get('pages/home', 'Pages::home');
-$routes->get('Customers/new','Pages::Customers');
+$routes->get('items/get_autocomplete', 'Items::get_autocomplete');
 $routes->post('sessions/logout', 'Sessions::logout');
 $routes->resource('sessions');
 $routes->resource('pages');
 $routes->resource('items');
 $routes->resource('purchases');
+$routes->resource('purchaseitems');
 $routes->resource('suppliers');
 $routes->resource('customers');
 $routes->resource('sales');
+$routes->resource('saleitems');
 $routes->resource('users');
-$routes->resource('purchases');
+
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
+    $routes->resource('items');
+});
 
 
 

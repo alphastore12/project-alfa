@@ -4,10 +4,10 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\PurchaseModel;
+use App\Models\PurchaseItemModel;
 
 class Purchases extends BaseController
 {
-
     protected $session;
 
     function __construct()
@@ -23,8 +23,8 @@ class Purchases extends BaseController
         }
 
         $purchase_model = new PurchaseModel();
-        $data['main_view'] = 'purchases/index';
         $data['purchases'] = $purchase_model->get_all_data();
+        $data['main_view'] = 'purchases/index';
         return view('layout', $data);
     }
 
@@ -36,22 +36,10 @@ class Purchases extends BaseController
 
     public function create()
     {
-        if (!$this->validate([
-            'invoice_no' => "required|integer",
-            'invoice_date' => 'required|date',
-            'supplier_id' => 'required|integer',
-            'grand_total' => 'required|integer',
-            'user_id' => 'required|integer'
-        ])) {
-            $data['main_view'] = 'purchases/new';
-            $data['errors'] = $this->validator;
-            return view('layout', $data);
-        }
-
         $purchase_model = new PurchaseModel();
         $purchase_model->create_data($this->request);
-        $this->session->setFlashdata('success', 'Barang berhasil disimpan');
-        return redirect()->to('/purchases');
+        $this->session->setFlashdata('success', 'purchase berhasil disimpan');
+        return redirect()->to('/purchases' . '/' . $purchase_model->getInsertID());
     }
 
     public function delete($id)
@@ -59,34 +47,17 @@ class Purchases extends BaseController
         $id = $this->request->getVar('id');
         $purchase_model = new PurchaseModel();
         $purchase_model->delete($id);
-        $this->session->setFlashdata('success', 'Barang berhasil dihapus');
+        $this->session->setFlashdata('success', 'Data berhasil dihapus');
         return redirect()->to('/purchases');
     }
 
-    public function edit($id)
+    public function show($id)
     {
         $purchase_model = new PurchaseModel();
-        $data['main_view'] = 'purchases/edit';
+        $purchase_item_model = new PurchaseItemModel();
         $data['purchase'] = $purchase_model->get_data($id);
+        $data['purchase_items'] = $purchase_item_model->get_data_by_purchase($id);
+        $data['main_view'] = 'purchases/show';
         return view('layout', $data);
-    }
-
-    public function update($id)
-    {
-        if (!$this->validate([
-            'invoice_no' => "required|integer",
-            'invoice_date' => 'required|date',
-            'supplier_id' => 'required|integer',
-            'grand_total' => 'required|integer',
-            'user_id' => 'required|integer'
-        ])) {
-            $data['main_view'] = 'purchases/edit';
-            $data['errors'] = $this->validator;
-            return view('layout', $data);
-        }
-        $purchase_model = new PurchaseModel();
-        $purchase_model->update_data($id, $this->request);
-        $this->session->setFlashdata('success', 'Barang berhasil diperbarui');
-        return redirect()->to('/purchases');
     }
 }

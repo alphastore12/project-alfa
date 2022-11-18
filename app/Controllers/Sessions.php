@@ -17,7 +17,9 @@ class Sessions extends BaseController
 
     public function index()
     {
+
         if ($this->session->get('user_id')) {
+
             return redirect()->to('pages/home');
         }
 
@@ -28,6 +30,7 @@ class Sessions extends BaseController
     {
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
+
         $user_model = new UserModel();
         $user = $user_model->auth_user($email, $password);
         if ($user != NULL) {
@@ -41,6 +44,7 @@ class Sessions extends BaseController
 
     public function logout()
     {
+
         $this->session->remove('user_id');
         return redirect()->to('/');
     }

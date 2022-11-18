@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Purchases extends Migration
+class CreateSaleItem extends Migration
 {
     public function up()
     {
@@ -14,28 +14,28 @@ class Purchases extends Migration
                 'unsigned' => true,
                 'auto_increment' => true
             ],
-            'invoice_no' => [
+            'sale_id' => [
                 'type' => 'int',
             ],
-            'invoice_date' => [
-                'type' => 'date',
-            ],
-            'supplier_id' => [
-                'type' => 'int',
-            ],
-            'grand_total' => [
-                'type' => 'decimal',
-            ],
-            'user_id' => [
+            'item_id' => [
                 'type' => 'int'
-            ]
+            ],
+            'quantity' => [
+                'type' => 'int',
+            ],
+            'price' => [
+                'type' => 'int'
+            ],
+            'subtotal' => [
+                'type' => 'int'
+            ],
         ]);
         $this->forge->addPrimaryKey('id', TRUE);
-        $this->forge->createTable('purchases', TRUE);
+        $this->forge->createTable('sale_items', TRUE);
     }
 
     public function down()
     {
-        $this->forge->dropTable('purchases');
+        $this->forge->dropTable('sale_items');
     }
 }

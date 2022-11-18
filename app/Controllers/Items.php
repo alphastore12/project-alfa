@@ -18,6 +18,7 @@ class Items extends BaseController
     public function index()
     {
         if (!$this->session->get('user_id')) {
+
             $this->session->setFlashdata('danger', 'Anda harus login terlebih dahulu');
             return redirect()->to('/');
         }
@@ -26,6 +27,7 @@ class Items extends BaseController
         $search = $this->request->getVar('search') ?? '';
         $data['items'] = $item_model->search_data($search);
         $data['pager'] = $item_model->pager;
+        $data['order_number'] = order_page_number($this->request->getVar('page_items'), 5);
         if ($this->request->isAJAX()) {
             return view('items/_items', $data);
         } else {
@@ -89,6 +91,8 @@ class Items extends BaseController
 
 
 
+
+
     public function edit($id)
     {
         $item_model = new ItemModel();
@@ -114,10 +118,25 @@ class Items extends BaseController
         return redirect()->to('/items');
     }
 
+
     public function show($id)
     {
         $item_model = new ItemModel();
         $data['item'] = $item_model->get_data($id);
         return view('items/show', $data);
+    }
+
+    public function get_autocomplete()
+    {
+        $item_model = new ItemModel();
+        $search = $this->request->getVar('term') ?? '';
+        $results = $item_model->search_data($search);
+        foreach ($results as $row) :
+            $arr_result[] = [
+                'id' => $row['id'],
+                'label' => $row['name']
+            ];
+        endforeach;
+        echo json_encode($arr_result);
     }
 }

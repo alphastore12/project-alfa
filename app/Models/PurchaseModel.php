@@ -42,7 +42,10 @@ class PurchaseModel extends Model
 
     public function get_all_data()
     {
-        return $this->get()->getResult();
+        $query = $this->join('suppliers', 'suppliers.id = purchases.supplier_id');
+        $query = $query->join('users', 'users.id = purchases.user_id');
+        $query = $query->select('purchases.*, suppliers.name AS supplier_name, users.name AS user_name');
+        return $query->get()->getResult();
     }
 
     public function get_data($id)
@@ -52,24 +55,33 @@ class PurchaseModel extends Model
 
     public function create_data($params)
     {
+        $prefix = 'SL' . date('y') . date('m');
+        $query = $this->like('invoice_no', $prefix)->orderBy('invoice_no', 'desc')->get()->getRow();
+        if ($query == NULL) {
+            $number = '00001';
+        } else {
+            $number = intval(str_replace($prefix, '', $query->invoice_no)) + 1;
+            $number = str_pad($number, 5, '0', STR_PAD_LEFT);
+        }
+        $invoice_no = $prefix . $number;
+
         $data = [
-            'invoice_no' => $params->getVar('invoice_no'),
-            'invoice_date' => $params->getvar('invoice_date'),
+            'invoice_no' => $invoice_no,
+            'invoice_date' => $params->getVar('invoice_date'),
             'supplier_id' => $params->getVar('supplier_id'),
-            'grand_total' => $params->getVar('grand_total'),
-            'user_id' => $params->getVar('user_id')
+            'user_id' => current_user()['id']
         ];
         return $this->save($data);
     }
 
-    public function update_data($id, $params)
+    public function update_grand_total($id)
     {
+        $query = $this->where('purchases.id', $id);
+        $query = $query->join('purchase_items', 'purchase_items.purchase_id = purchases.id');
+        $query = $query->selectSum('subtotal', 'grand_total');
+        $query = $query->get()->getRow();
         $data = [
-            'invoice_no' => $params->getVar('invoice_no'),
-            'invoice_date' => $params->getvar('invoice_date'),
-            'supplier_id' => $params->getVar('supplier_id'),
-            'grand_total' => $params->getVar('grand_total'),
-            'user_id' => $params->getVar('user_id')
+            'grand_total' => $query->grand_total
         ];
         return $this->update($id, $data);
     }

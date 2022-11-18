@@ -1,29 +1,31 @@
-<h3>List User</h3>
-<hr />
-<div class="row">
-    <div class="col-12 col-xl-5 col-lg-6">
-        <form action="/users" method="get" class="mb-2" id="form-search">
-            <div class="input-group">
-                <span class="input-group-text fw-bold">Cari User</span>
-                <input type="text" name="search" id="search" placeholder="Masukkan nama user atau email" class="form-control" autocomplete="off">
-                <input type="submit" value="Cari" class="btn btn-primary">
-                <a href="/users/new" class="btn btn-outline-secondary">Tambah</a>
-            </div>
-        </form>
+<div class="container-fluid px-4">
+    <h3 class="mt-4" class="text-center">Users</h3>
+    <hr />
+    <div class="row">
+        <div class="col-12 col-xl-5 col-lg-6">
+            <form action="/users" method="get" class="mb-2" id="form-search">
+                <div class="input-group">
+                    <span class="input-group-text fw-bold">Cari Barang</span>
+                    <input type="text" name="search" id="search" placeholder="Masukkan nama barang" class="form-control">
+                    <input type="submit" value="Cari" class="btn btn-outline-primary">
+                    <a href="/users/new" class="btn btn-outline-secondary">Add Users</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<?php foreach (session()->getFlashdata() as $key => $flash) : ?>
-    <div class="alert alert-<?= $key ?>" role="alert">
-        <?= $flash ?>
-    </div>
-<?php endforeach; ?>
+    <?php foreach (session()->getFlashdata() as $key => $flash) : ?>
+        <div class="alert alert-<?= $key ?>" role="alert">
+            <?= $flash ?>
+        </div>
+    <?php endforeach; ?>
+</div>
 
 <div id="table-result">
     <?= view('users/_users', ['users' => $users]) ?>
 </div>
 
-<div class="modal fade" tabindex="-1" id="modal-show-item">
+<div class="modal fade" tabindex="-1" id="modal-show-user">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

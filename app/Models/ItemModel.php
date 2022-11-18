@@ -14,7 +14,7 @@ class ItemModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'unit', 'price', 'image_name'];
+    protected $allowedFields    = ['name', 'unit', 'price', 'image_name', 'status_id'];
 
     // Dates
     protected $useTimestamps = false;
@@ -50,6 +50,7 @@ class ItemModel extends Model
         return $this->find($id);
     }
 
+
     public function search_data($search)
     {
         $query = $this->like('LOWER(name)', strtolower($search));
@@ -58,6 +59,7 @@ class ItemModel extends Model
         $query = $query->orderBy('name', 'ASC');
         return $query->paginate(5, 'items');
     }
+
 
     public function create_data($params)
     {
@@ -69,7 +71,8 @@ class ItemModel extends Model
             'name' => $params->getVar('name'),
             'unit' => $params->getvar('unit'),
             'price' => $params->getVar('price'),
-            'image_name' => $image_name
+            'image_name' => $image_name,
+            'status_id' => $params->getVar('status_id')
         ];
         return $this->save($data);
     }
@@ -79,7 +82,8 @@ class ItemModel extends Model
         $data = [
             'name' => $params->getVar('name'),
             'unit' => $params->getVar('unit'),
-            'price' => $params->getVar('price')
+            'price' => $params->getVar('price'),
+            'status_id' => $params->getVar('status_id')
         ];
         return $this->update($id, $data);
     }

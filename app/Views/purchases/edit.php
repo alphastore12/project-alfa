@@ -31,6 +31,7 @@
                 <div class='text-danger mt-2'>
                     <?= $error = $errors->getError('supplier_id'); ?>
                 </div>
+
                 <div class="mb-3">
                     <label for="grand_total" class="from-label">Grand_total</label>
                     <input type="text" name="grand_total" id="grand_total" class="form-control" value="<?= $purchase['grand_total'] ?>">
@@ -48,6 +49,7 @@
                             <?php } ?>
                         </div>
                     <?php } ?>
+
                 </div>
             <?php } ?>
         </div>

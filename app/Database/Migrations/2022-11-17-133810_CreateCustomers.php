@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Suppliers extends Migration
+class CreateCustomers extends Migration
 {
     public function up()
     {
@@ -14,24 +14,20 @@ class Suppliers extends Migration
                 'unsigned' => true,
                 'auto_increment' => true
             ],
-            'code' => [
-                'type' => 'int',
-            ],
             'name' => [
                 'type' => 'varchar',
                 'constraint' => 255
             ],
             'status_id' => [
-                'type' => 'varchar',
-                'constraint' => 255
+                'type' => 'int'
             ],
         ]);
         $this->forge->addPrimaryKey('id', TRUE);
-        $this->forge->createTable('suppliers', TRUE);
+        $this->forge->createTable('customers', TRUE);
     }
 
     public function down()
     {
-        $this->forge->dropTable('suppliers');
+        $this->forge->dropTable('customers');
     }
 }

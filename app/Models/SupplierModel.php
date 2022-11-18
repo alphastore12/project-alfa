@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class SupplierModel extends Model
+class supplierModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'suppliers';
@@ -14,7 +14,7 @@ class SupplierModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['code', 'name', 'status_id', 'image_name'];
+    protected $allowedFields    = ['name', 'status_id'];
 
     // Dates
     protected $useTimestamps = false;
@@ -50,17 +50,18 @@ class SupplierModel extends Model
         return $this->find($id);
     }
 
+    public function search_data($search)
+    {
+        $query = $this->like('LOWER(name)', strtolower($search));
+        $query = $query->orderBy('name', 'ASC');
+        return $query->paginate(5, 'suppliers');
+    }
+
     public function create_data($params)
     {
-        $uploaded_file = $params->getFile('image_upload');
-        $image_name = $uploaded_file->getRandomName();
-        $uploaded_file->move('assets/images', $image_name);
-
         $data = [
-            'code' => $params->getVar('code'),
-            'name' => $params->getvar('name'),
-            'status_id' => $params->getVar('status_id'),
-            'image_name' => $image_name
+            'name' => $params->getVar('name'),
+            'status_id' => $params->getVar('status_id')
         ];
         return $this->save($data);
     }
@@ -68,8 +69,7 @@ class SupplierModel extends Model
     public function update_data($id, $params)
     {
         $data = [
-            'code' => $params->getVar('code'),
-            'name' => $params->getvar('name'),
+            'name' => $params->getVar('name'),
             'status_id' => $params->getVar('status_id')
         ];
         return $this->update($id, $data);

@@ -22,31 +22,29 @@
 
 </div>
 
-<div class="mb-3">
-    <div class="table-responsive container">
-        <div id="table-result">
-            <?= view('items/_items', ['items' => $items]) ?>
 
-            <div class="modal fade" tabindex="-1" id="modal-show-item">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Loading..</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Loading..
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
+<div class="table-responsive container">
+    <div id="table-result">
+        <?= view('items/_items', ['items' => $items]) ?>
+        <div class="modal fade" tabindex="-1" id="modal-show-item">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Loading..</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Loading..
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+</div>
 
 <script type="text/javascript">
     $(function() {

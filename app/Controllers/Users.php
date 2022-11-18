@@ -16,6 +16,12 @@ class Users extends BaseController
 
     public function index()
     {
+        if (!$this->session->get('user_id')) {
+
+            $this->session->setFlashdata('danger', 'Anda harus login terlebih dahulu');
+            return redirect()->to('/');
+        }
+
         $user_model = new UserModel();
         $search = $this->request->getVar('search') ?? '';
         $data['users'] = $user_model->search_data($search);

@@ -3,18 +3,19 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use App\Models\PurchaseModel;
 
-class CustomerModel extends Model
+class PurchaseItemModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'customers';
+    protected $table            = 'purchase_items';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'status_id'];
+    protected $allowedFields    = ['purchase_id', 'item_id', 'price', 'quantity', 'subtotal'];
 
     // Dates
     protected $useTimestamps = false;
@@ -40,38 +41,31 @@ class CustomerModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function get_all_data()
+    public function get_data_by_purchase($purchase_id)
     {
-        return $this->get()->getResult();
-    }
-
-    public function get_data($id)
-    {
-        return $this->find($id);
-    }
-
-    public function search_data($search)
-    {
-        $query = $this->like('LOWER(name)', strtolower($search));
-        $query = $query->orderBy('name', 'ASC');
-        return $query->paginate(5, 'customers');
+        $query = $this->where('purchase_id', $purchase_id);
+        $query = $this->join('items', 'items.id = purchase_items.item_id');
+        $query = $this->select(
+            'purchase_items.*, items.name AS item_name'
+        );
+        return $query->get()->getResult();
     }
 
     public function create_data($params)
     {
+        $subtotal = $params->getVar('quantity') * $params->getVar('price');
         $data = [
-            'name' => $params->getVar('name'),
-            'status_id' => $params->getVar('status_id')
+            'purchase_id' => $params->getVar('purchase_id'),
+            'item_id' => $params->getVar('item_id'),
+            'quantity' => $params->getVar('quantity'),
+            'price' => $params->getVar('price'),
+            'subtotal' => $subtotal
         ];
-        return $this->save($data);
-    }
-
-    public function update_data($id, $params)
-    {
-        $data = [
-            'name' => $params->getVar('name'),
-            'status_id' => $params->getVar('status_id')
-        ];
-        return $this->update($id, $data);
+        if ($this->save($data)) {
+            $purchase_model = new PurchaseModel();
+            return $purchase_model->update_grand_total($params->getVar('purchase_id'));
+        } else {
+            return false;
+        }
     }
 }

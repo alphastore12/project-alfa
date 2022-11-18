@@ -4,10 +4,10 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\SaleModel;
+use App\Models\SaleItemModel;
 
 class Sales extends BaseController
 {
-
     protected $session;
 
     function __construct()
@@ -23,8 +23,8 @@ class Sales extends BaseController
         }
 
         $sale_model = new SaleModel();
-        $data['main_view'] = 'sales/index';
         $data['sales'] = $sale_model->get_all_data();
+        $data['main_view'] = 'sales/index';
         return view('layout', $data);
     }
 
@@ -36,22 +36,10 @@ class Sales extends BaseController
 
     public function create()
     {
-        if (!$this->validate([
-            'invoice_no' => "required|integer",
-            'invoice_date' => 'required|date',
-            'customer_id' => 'required|integer',
-            'grand_total' => 'required|integer',
-            'user_id' => 'required|integer'
-        ])) {
-            $data['main_view'] = 'sales/new';
-            $data['errors'] = $this->validator;
-            return view('layout', $data);
-        }
-
         $sale_model = new SaleModel();
         $sale_model->create_data($this->request);
-        $this->session->setFlashdata('success', 'Barang berhasil disimpan');
-        return redirect()->to('/sales');
+        $this->session->setFlashdata('success', 'Sale berhasil disimpan');
+        return redirect()->to('/sales' . '/' . $sale_model->getInsertID());
     }
 
     public function delete($id)
@@ -59,34 +47,17 @@ class Sales extends BaseController
         $id = $this->request->getVar('id');
         $sale_model = new SaleModel();
         $sale_model->delete($id);
-        $this->session->setFlashdata('success', 'Barang berhasil dihapus');
+        $this->session->setFlashdata('success', 'Data berhasil dihapus');
         return redirect()->to('/sales');
     }
 
-    public function edit($id)
+    public function show($id)
     {
         $sale_model = new SaleModel();
-        $data['main_view'] = 'sales/edit';
+        $sale_item_model = new SaleItemModel();
         $data['sale'] = $sale_model->get_data($id);
+        $data['sale_items'] = $sale_item_model->get_data_by_sale($id);
+        $data['main_view'] = 'sales/show';
         return view('layout', $data);
-    }
-
-    public function update($id)
-    {
-        if (!$this->validate([
-            'invoice_no' => "required|integer",
-            'invoice_date' => 'required|date',
-            'customer_id' => 'required|integer',
-            'grand_total' => 'required|integer',
-            'user_id' => 'required|integer'
-        ])) {
-            $data['main_view'] = 'sales/edit';
-            $data['errors'] = $this->validator;
-            return view('layout', $data);
-        }
-        $sale_model = new saleModel();
-        $sale_model->update_data($id, $this->request);
-        $this->session->setFlashdata('success', 'Barang berhasil diperbarui');
-        return redirect()->to('/sales');
     }
 }
