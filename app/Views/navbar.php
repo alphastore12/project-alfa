@@ -2,7 +2,7 @@
   <!-- Navbar content -->
   <div class="container-fluid">
     <a class="navbar-brand">
-      <img src="/image/logoapp.jpg" class="image1">
+      <h1> Laris Store </h1>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
